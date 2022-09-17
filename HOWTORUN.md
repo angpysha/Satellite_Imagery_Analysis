@@ -8,7 +8,7 @@ https://developer.nvidia.com/cuda-downloads
 6. Start docker service ``sudo service docker start``
 7. Run tensorflow container 
 7. 
-``sudo docker run -it --rm -p 8888:8888 angpysha/mytfgpu:1.0.3 -v ~/shared:/tmp/shared``
+``sudo docker run -it --rm -p 8888:8888 angpysha/mytfgpu:1.0.6 -v ~/shared:/tmp/shared``
 7. Setup Pycharm or other internpreter to notebook server localhost:8888
 
 ## How to enter bash to docker
@@ -17,3 +17,7 @@ https://developer.nvidia.com/cuda-downloads
 2. Run command ``sudo docker exec -it {containerId} /bin/bash``
 
 ## How to commit new changes to docker container
+1. Find current running container ID using command ``sudo docker container list``
+2. Create new version of image ``sudo docker commit {id} angpysha/mytfgpu:{version}``
+3. Push chnages to docker repository 
+``sudo docker push angpysha/mytfgpu:{version}``
