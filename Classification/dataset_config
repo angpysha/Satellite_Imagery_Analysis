@@ -1,1 +1,3 @@
+[config]
 categories=water,forest,field,city
+categories_tree = ["water",["forest",["field","city"]]]
