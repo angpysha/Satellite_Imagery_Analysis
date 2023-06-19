@@ -1,5 +1,8 @@
 
 class Dataset5:
+    """
+    Model for current version of dataset
+    """
     def __init__(self, categories_to_learn, categories_map,
                  x_train, y_train, x_test, y_test):
         self.categories_to_learn = categories_to_learn

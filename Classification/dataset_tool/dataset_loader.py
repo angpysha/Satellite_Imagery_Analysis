@@ -24,6 +24,7 @@ import pathlib
 import sys
 import json
 from itertools import groupby
+from scipy.ndimage import median_filter
 
 from sklearn.preprocessing import MinMaxScaler
 # directory = pathlib.Path(__file__).parent.resolve()
@@ -38,6 +39,10 @@ from .dataset5 import *
 np.seterr(divide='ignore', invalid='ignore')
 
 def getCurrentDir():
+    """
+    Returns parent paths
+    :return:
+    """
     return pathlib.Path(__file__).parent.resolve()
 
 def getCategory(path):
@@ -161,6 +166,12 @@ def flattenXY(vectors, y_data_cat):
     x_array_changed = np.moveaxis(x_array, -1, 0)
 
     return (np.asarray(x_array_changed), np.asarray(y_dt))
+
+def median(array, window_size):
+    l_filtred = []
+    for ll in array:
+        l_filtred.append(median_filter(array, window_size))
+    return l_filtred
 
 import random
 

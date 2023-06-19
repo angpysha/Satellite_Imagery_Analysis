@@ -5,6 +5,9 @@ from abc import ABC
 
 
 class BaseModel:
+    """
+    Base class for predictor. All classifiers have to iherit form this calls
+    """
     def __init__(self, dataset: [IterDataset]):
         self.dataset = dataset
 

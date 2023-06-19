@@ -63,17 +63,17 @@ class RealPrediction():
         x_scaled = self.x_scaled_base.copy()
         for idx, m in enumerate(self.model):
             prediction = m.predict_proba(x_scaled)
-            predictions.append(prediction)
-            # if idx + 1 != len(self.model):
-            #     condition_indexes = self.predictions[idx][0]
-            #     # x_scaled = np.delete(x_scaled, condition_indexes, axis=0)
-            #     predictions.append((condition_indexes,prediction,idx))
-            #     # condition_indexes = np.where(condition)[0]
-            #     # partial_prediction = prediction[condition].copy()
-            #     # x_scaled = np.delete(x_scaled, condition, axis=0)
-            #     # predictions.append((condition_indexes, partial_prediction, idx))
-            # else:
-            #     predictions.append(([], prediction, idx))
+            # predictions.append(prediction)
+            if idx + 1 != len(self.model):
+                condition_indexes = self.predictions[idx][0]
+                # x_scaled = np.delete(x_scaled, condition_indexes, axis=0)
+                predictions.append((condition_indexes,prediction,idx))
+                # condition_indexes = np.where(condition)[0]
+                # partial_prediction = prediction[condition].copy()
+                # x_scaled = np.delete(x_scaled, condition, axis=0)
+                # predictions.append((condition_indexes, partial_prediction, idx))
+            else:
+                predictions.append(([], prediction, idx))
         self.predictions_proba = predictions
 
 
