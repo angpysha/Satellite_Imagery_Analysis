@@ -77,18 +77,39 @@ class RealPrediction():
         self.predictions_proba = predictions
 
 
+    # def flatten(self):
+    #     array = np.empty(0)
+    #     for index, item in reversed(list(enumerate(self.predictions))):
+    #         new_array = np.empty(array.shape[0] + item[1].shape[0], dtype=float)
+    #         print(f"Predcition: {item[2]}. Len of idxs: {len(item[0])}. New array shape: {new_array.shape}")
+    #         new_items = item[1] + item[2]
+    #         if len(item[0]) == 0:
+    #             new_array[np.arange(item[1].shape[0])] = new_items
+    #         else:
+    #             new_array[item[0]] = item[1]
+    #             new_array[~np.isin(np.arange(array.shape[0] + item[1].shape[0]), item[0])] = array
+    #         array = new_array
+    #     self.predictions_composite = array
+
     def flatten(self):
         array = np.empty(0)
         for index, item in reversed(list(enumerate(self.predictions))):
-            new_array = np.empty(array.shape[0] + item[1].shape[0], dtype=float)
+            new_array = np.zeros(array.shape[0] + item[1].shape[0], dtype=float)
             print(f"Predcition: {item[2]}. Len of idxs: {len(item[0])}. New array shape: {new_array.shape}")
-            new_items = item[1] + item[2]
+            print(
+                f"items before: {item[1]}: Min value: {item[1].min()} max value: {item[1].max()}. Items with 1: {np.where(item[1][item[1] == 1])[0].shape}.Items with 2: {np.where(item[1][item[1] == 2])[0].shape}")
+            new_items = item[1].copy() + item[2]
+            print(
+                f"items after: {new_items}: Min value: {new_items.min()} max value: {new_items.max()}. Items with {1 + item[2]}: {np.where(new_items[new_items == 1 + item[2]])[0].shape}.Items with {2 + item[2]}: {np.where(new_items[new_items == 2 + item[2]])[0].shape}")
+            # print(f"items before: {new_items}")
             if len(item[0]) == 0:
-                new_array[np.arange(item[1].shape[0])] = new_items
+                new_array[np.arange(item[1].shape[0])] = new_items.copy()
             else:
-                new_array[item[0]] = item[1]
-                new_array[~np.isin(np.arange(array.shape[0] + item[1].shape[0]), item[0])] = array
+                print(f"items idx: {item[0]}  with type {type(item[0])}")
+                new_array[~np.isin(np.arange(array.shape[0] + item[1].shape[0]), item[0])] = array.copy()
+                new_array[np.isin(np.arange(array.shape[0] + item[1].shape[0]), item[0])] = new_items.copy()
             array = new_array
+            print(f"max: {array.min()}")
         self.predictions_composite = array
         
     

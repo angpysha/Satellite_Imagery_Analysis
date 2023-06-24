@@ -15,7 +15,7 @@ class KNNClassifier(BaseModel):
     def fit(self):
         self.models.clear()
         for item in self.dataset:
-            knn = KNeighborsClassifier(n_neighbors=20, p=2, weights='uniform')
+            knn = KNeighborsClassifier(n_neighbors=400, p=2, weights='uniform')
             knn.fit(item.x_train, item.y_train)
             knn.predict(item.x_test)
             self.models.append(copy.deepcopy(knn))
