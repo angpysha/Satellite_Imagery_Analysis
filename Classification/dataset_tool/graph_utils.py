@@ -2,7 +2,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 def createHistGraph(probalities, categories_map):
-
+    """
+    Creates histgram for propalities
+    :param probalities: probabilites list
+    :param categories_map: legend map to transform numbers to human-readable categories
+    :return: None
+    """
     fig, axs = plt.subplots(probalities.shape[1])
 
     for category in range(probalities.shape[1]):

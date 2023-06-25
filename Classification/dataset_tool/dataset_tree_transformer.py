@@ -8,7 +8,14 @@ import json
 from .iter_dataset import *
 
 class DatasetTreeAdapter:
+    """
+    Transforms default dataset to binary tree
+    """
     def __init__(self, dataset: Dataset5):
+        """
+        Create tree dataset object
+        :param dataset: default dataset object
+        """
         config = loadConfig()
         categories_tree = config.get("config", "categories_tree")
         print(f"categories tree string {categories_tree}")
