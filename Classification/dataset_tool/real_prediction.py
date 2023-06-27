@@ -16,6 +16,7 @@ class RealPrediction():
         self.height = 0
         self.image = []
         self.__load()
+        self.arr_st = []
 
     def __flattenTestImage(self, image):
         imgs = []
