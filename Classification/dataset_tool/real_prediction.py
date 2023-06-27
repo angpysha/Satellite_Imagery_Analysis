@@ -14,6 +14,7 @@ class RealPrediction():
         self.model = model
         self.width = 0
         self.height = 0
+        self.image = []
         self.__load()
 
     def __flattenTestImage(self, image):
@@ -33,6 +34,12 @@ class RealPrediction():
 
         self.height = len(l2[0])
         self.width = len(l2[0][0])
+
+        arr_st = np.stack(l2)
+
+        img = arr_st[[3,2,1], :,:]
+        self.image = np.moveaxis(img, 0,-1)
+
         tst_img = self.__flattenTestImage(l2)
         tst_img_np = np.asarray(tst_img)
         tst_img_np = np.moveaxis(tst_img_np, -1, 0)
