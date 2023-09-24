@@ -47,19 +47,19 @@ def getCurrentDir():
 
 def getCategory(path):
     url = path.split("/")
-    category = url[4]
+    category = url[5]
     return category
 
 
 def getParentImageNumber(path):
     url = path.split("/")
-    category = url[5]
+    category = url[6]
     return category
 
 
 def getImagePartNumber(path):
     url = path.split("/")
-    category = url[6]
+    category = url[7]
     return category
 
 def toGrouped(array):
@@ -193,7 +193,7 @@ def split_train_data2(x, y, coef):
 def load_dataset5(train_test_coeff = 0.8):
     from glob import glob
 
-    S_sentinel_bands = glob("/tmp/shared/dataset_5/**/*B?*.tiff", recursive=True)
+    S_sentinel_bands = glob("/mnt/d/shared_folder/dataset_5_fixed/**/*B?*.tiff", recursive=True)
     S_sentinel_bands.sort()
     S_sentinel_bands
 
@@ -211,10 +211,13 @@ def load_dataset5(train_test_coeff = 0.8):
     categories_map = createCategoriesNumbersMap(categories_to_include)
 
     categories_to_learn = getLearnCategoriesPaths(categories_to_include, grouped_items)
-
+    print(f"Categories to learn: {categories_to_learn}")
     prepared_images = prepareBeforeTraining(categories_to_learn)
+    print(f"prepared images: {prepared_images}")
 
     loaded_images = loadImages(prepared_images)
+
+    print(f"Imags: {loaded_images}")
 
     images_vectors = createVectors(loaded_images)
 
@@ -222,8 +225,9 @@ def load_dataset5(train_test_coeff = 0.8):
 
     x_data, y_data = flattenXY(images_vectors, y_data_cat)
 
-    scaler = MinMaxScaler(feature_range=(0, 1))
-    x_scaled = scaler.fit_transform(x_data)
+    # scaler = MinMaxScaler(feature_range=(0, 1))
+    # x_scaled = scaler.fit_transform(x_data)
+    x_scaled = x_data/255
 
     x_train, y_train, x_test, y_test = split_train_data2(x_scaled, y_data, train_test_coeff)
 
